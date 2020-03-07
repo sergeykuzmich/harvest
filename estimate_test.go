@@ -3,7 +3,16 @@ package harvest_api_client
 import "testing"
 
 func TestGetEstimate(t *testing.T) {
-	estimate := testEstimate(t)
+	a := testAPI()
+	estimateResponse := mockResponse("estimates", "estimate-example.json")
+	a.BaseURL = estimateResponse.URL
+	estimate, err := a.GetEstimate(1439818, Defaults())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if estimate == nil {
+		t.Error("GetEstimate() failed.")
+	}
 
 	if estimate.ID != 1439818 {
 		t.Errorf("Incorrect Estimate ID '%v'", estimate.ID)
@@ -19,16 +28,19 @@ func TestGetEstimate(t *testing.T) {
 	}
 }
 
-func testEstimate(t *testing.T) *Estimate {
+func TestGetEstimates(t *testing.T) {
 	a := testAPI()
-	estimateResponse := mockResponse("estimates", "estimate-example.json")
+	estimateResponse := mockResponse("estimates", "estimates-example.json")
 	a.BaseURL = estimateResponse.URL
-	estimate, err := a.GetEstimate(1439818, Defaults())
+	estimates, err := a.GetEstimates(Defaults())
 	if err != nil {
 		t.Fatal(err)
 	}
-	if estimate == nil {
-		t.Error("GetEstimate() failed.")
+	if estimates == nil {
+		t.Error("GetEstimates() failed.")
 	}
-	return estimate
+
+	if len(estimates) != 2 {
+		t.Errorf("Incorrect number of estimates '%v'", len(estimates))
+	}
 }
