@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func testTask(t *testing.T) *Task {
+func TestGetTask(t *testing.T) {
 	a := testAPI()
 	taskResponse := mockResponse("tasks", "task-example.json")
 	a.BaseURL = taskResponse.URL
@@ -13,22 +13,15 @@ func testTask(t *testing.T) *Task {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	if task == nil {
+		t.Fatal("testTask() returned nil instead of task")
+	}
 	if task.Name != "Admin" {
 		t.Errorf("Incorrect Task Name '%s'", task.Name)
 	}
 	if task.ID != 2086199 {
 		t.Errorf("Incorrect Task ID '%v'", task.ID)
-	}
-	return task
-}
-
-func TestGetTask(t *testing.T) {
-	task := testTask(t)
-	if task == nil {
-		t.Fatal("testTask() returned nil instead of task")
-	}
-	if task.ID != 2086199 {
-		t.Errorf("Incorrect task ID '%v'", task.ID)
 	}
 }
 
