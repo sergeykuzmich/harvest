@@ -1,9 +1,6 @@
 {
   "id": 37453419,
-  "task": {
-    "id": 2086199,
-    "name": "Example Task"
-  },
+  "task_id": 2086199,
   "billable": true,
   "is_active": true,
   "hourly_rate": 100,

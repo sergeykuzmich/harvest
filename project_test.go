@@ -166,8 +166,8 @@ func TestDuplicateProject(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if project.ID != 2 {
-		t.Errorf("Expected new project with ID=%d, but got ID=%d", 2, project.ID)
+	if project.ID != 3 {
+		t.Errorf("Expected new project with ID=%d, but got ID=%d", 3, project.ID)
 	}
 }
 

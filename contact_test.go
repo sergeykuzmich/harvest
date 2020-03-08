@@ -35,9 +35,9 @@ func TestGetNonExistingContact(t *testing.T) {
 
 	expectedError := errors.Errorf("HTTP request failure on %s/contacts/1: %s", contactResponse.URL, string("{}\n"))
 
-  if err.Error() != expectedError.Error() {
-  	t.Fatal(err)
-  }
+	if err.Error() != expectedError.Error() {
+		t.Fatal(err)
+	}
 }
 
 func TestGetClientContacts(t *testing.T) {

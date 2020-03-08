@@ -126,7 +126,7 @@ func UserAssignmentAttributesDiffer(ua1, ua2 *UserAssignment) bool {
 	if ua1.Deactivated != ua2.Deactivated {
 		return true
 	}
-	if !HaveSameFloat64Value(ua1.HourlyRate, ua2.HourlyRate) {
+	if ua1.HourlyRate == ua2.HourlyRate || *ua1.HourlyRate == *ua2.HourlyRate {
 		return true
 	}
 	if ua1.IsProjectManager != ua2.IsProjectManager {
