@@ -18,7 +18,7 @@ type TaskAssignmentsResponse struct {
 
 type TaskAssignment struct {
 	ID         int64     `json:"id,omitempty"`
-	Task       TaskStub  `json:"task,omitempty"`
+	TaskID     int64     `json:"task_id"`
 	Billable   bool      `json:"billable"`
 	IsActive   bool      `json:"is_active"`
 	Budget     *float64  `json:"budget"`
@@ -70,7 +70,7 @@ func (a *API) CopyTaskAssignments(destProjectID int64, sourceProjectID int64) er
 
 	// Remove incorrect TaskAssignments
 	for _, destTA := range destTAs {
-		if !ContainsTaskID(destTA.Task.ID, sourceTAs) {
+		if !ContainsTaskID(destTA.TaskID, sourceTAs) {
 			err = a.DeleteTaskAssignment(destProjectID, destTA, Defaults())
 			if err != nil {
 				return err
@@ -80,9 +80,9 @@ func (a *API) CopyTaskAssignments(destProjectID int64, sourceProjectID int64) er
 
 	// Add missing TaskAssignments, update existing ones
 	for _, sourceTA := range sourceTAs {
-		if !ContainsTaskID(sourceTA.Task.ID, destTAs) {
+		if !ContainsTaskID(sourceTA.TaskID, destTAs) {
 			ta := TaskAssignment{
-				Task:       TaskStub{ID: sourceTA.Task.ID},
+				TaskID:     sourceTA.TaskID,
 				Billable:   sourceTA.Billable,
 				IsActive:   sourceTA.IsActive,
 				Budget:     sourceTA.Budget,
@@ -96,7 +96,7 @@ func (a *API) CopyTaskAssignments(destProjectID int64, sourceProjectID int64) er
 			}
 		} else {
 			for _, newTA := range destTAs {
-				if newTA.Task.ID == sourceTA.Task.ID && TaskAssignmentAttributesDiffer(newTA, sourceTA) {
+				if newTA.TaskID == sourceTA.TaskID && TaskAssignmentAttributesDiffer(newTA, sourceTA) {
 					newTA.Billable = sourceTA.Billable
 					newTA.IsActive = sourceTA.IsActive
 					newTA.Budget = sourceTA.Budget
@@ -114,7 +114,7 @@ func (a *API) CopyTaskAssignments(destProjectID int64, sourceProjectID int64) er
 
 func ContainsTaskID(taskID int64, tas []*TaskAssignment) bool {
 	for _, ta := range tas {
-		if ta.Task.ID == taskID {
+		if ta.TaskID == taskID {
 			return true
 		}
 	}
@@ -128,10 +128,10 @@ func TaskAssignmentAttributesDiffer(ta1, ta2 *TaskAssignment) bool {
 	if ta1.IsActive != ta2.IsActive {
 		return true
 	}
-	if !HaveSameFloat64Value(ta1.Budget, ta2.Budget) {
+	if ta1.Budget == ta2.Budget || *ta1.Budget == *ta2.Budget {
 		return true
 	}
-	if !HaveSameFloat64Value(ta1.HourlyRate, ta2.HourlyRate) {
+	if ta1.HourlyRate == ta2.HourlyRate || *ta1.HourlyRate == *ta2.HourlyRate {
 		return true
 	}
 	return false

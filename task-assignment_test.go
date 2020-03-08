@@ -16,8 +16,8 @@ func TestGetTaskAssignments(t *testing.T) {
 	if taskassignments[0].ID != 101061850 {
 		t.Errorf("Incorrect task assignment ID '%v'", taskassignments[0].ID)
 	}
-	if taskassignments[2].Task.ID != 733904 {
-		t.Errorf("Incorrect TaskID '%v'", taskassignments[2].Task.ID)
+	if taskassignments[2].TaskID != 733904 {
+		t.Errorf("Incorrect TaskID '%v'", taskassignments[2].TaskID)
 	}
 }
 
@@ -29,8 +29,8 @@ func TestGetTaskAssignment(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if taskassignment.Task.ID != 2086199 {
-		t.Errorf("Incorrect task ID '%v'", taskassignment.Task.ID)
+	if taskassignment.TaskID != 2086199 {
+		t.Errorf("Incorrect task ID '%v'", taskassignment.TaskID)
 	}
 }
 
@@ -86,8 +86,8 @@ func TestCopyTaskAssignments(t *testing.T) {
 
 func TestContainsTaskIDPresent(t *testing.T) {
 	ids := []*TaskAssignment{
-		&TaskAssignment{Task: TaskStub{ID: 1}},
-		&TaskAssignment{Task: TaskStub{ID: 2}},
+		&TaskAssignment{TaskID: 1},
+		&TaskAssignment{TaskID: 2},
 	}
 	if ContainsTaskID(1, ids) != true {
 		t.Errorf("ContainsTaskID should be true for 1 when ids contains TaskID: 1")
@@ -96,8 +96,8 @@ func TestContainsTaskIDPresent(t *testing.T) {
 
 func TestContainsTaskIDMissing(t *testing.T) {
 	ids := []*TaskAssignment{
-		&TaskAssignment{Task: TaskStub{ID: 1}},
-		&TaskAssignment{Task: TaskStub{ID: 2}},
+		&TaskAssignment{TaskID: 1},
+		&TaskAssignment{TaskID: 2},
 	}
 	if ContainsTaskID(10, ids) != false {
 		t.Errorf("ContainsTaskID should be false for 10 when ids has no TaskID: 10")

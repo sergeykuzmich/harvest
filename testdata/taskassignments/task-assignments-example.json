@@ -1,10 +1,7 @@
 {
   "task_assignments": [
     {
-        "task": {
-          "id": 733902,
-          "name": "Task One"
-        },
+        "task_id": 733902,
         "billable": true,
         "deactivated": false,
         "hourly_rate": 150,
@@ -14,10 +11,7 @@
         "updated_at": "2016-02-24T08:06:29Z"
     },
     {
-        "task": {
-          "id": 733903,
-          "name": "Task Two"
-        },
+        "task_id": 733903,
         "billable": true,
         "deactivated": false,
         "hourly_rate": 150,
@@ -27,10 +21,7 @@
         "updated_at": "2015-11-05T21:06:57Z"
     },
     {
-        "task": {
-          "id": 733904,
-          "name": "Task Three"
-        },
+        "task_id": 733904,
         "billable": false,
         "deactivated": false,
         "hourly_rate": 150,
@@ -40,10 +31,7 @@
         "updated_at": "2015-11-05T21:09:12Z"
     },
     {
-        "task": {
-          "id": 4836342,
-          "name": "Task Four"
-        },
+        "task_id": 4836342,
         "billable": true,
         "deactivated": false,
         "hourly_rate": 150,
